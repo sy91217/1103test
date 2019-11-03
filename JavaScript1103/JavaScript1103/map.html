@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      #map {
+        width:800px;height:600px;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>Google Map</h3>
+    <button onclick="go();">Go</button>
+    <div id="map"></div>
+    <script> // API https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/reference
+      let map;
+      function initMap(){ // 告訴地圖初始的設定
+        map=new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 24, lng: 121}, //lat=北緯, lng=東經
+          zoom: 8, // 地圖的縮放
+          /* zoomControl:false, // 右下角的控制縮放功能不見了
+          mapTypeId:google.maps.MapTypeId.SATELLTE // 變成衛星雲圖*/
+        });
+        // 建立標示
+        let marker=new google.maps.Marker({
+            position:{lat:25, lng:121.5},
+            map:map
+        });
+        // 建立資訊視窗
+        let win=new google.maps.InfoWindow({
+            content:"<b>Address:</b> 世新大學",
+            position: {lat:25, lng:121.5}
+        });
+         // 處理標示的點擊事件
+         marker.addListener("click", function(){
+            win.open(map, marker);
+        });
+      }
+      function go(){ // 中心座標
+          map.setCenter({lat:26, lng:121.5});
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"async defer></script>
+  </body>
+</html>
