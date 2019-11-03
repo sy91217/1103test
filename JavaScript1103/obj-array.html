@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charst="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Conpatible" content="ie=edge">
+    <title>Object amd Array</title>
+
+</head>
+<body>
+    <script>
+    // 物件: 可以包裹 (封裝) 其他資料的東西
+    // 創造一個新的物件: {成員名稱: 資料, 成員名稱: 資料, ...}
+    /*
+    let point={
+        x=3, y=4, show:function(){
+            console.log(this.x, this.y); // 印出 x, y
+        }
+
+    };
+    // 取得物件的成員: 物件.成員名稱
+    console.log(point.x+point.y);
+    console.log(point.show);
+    // 新增、修改物件的成員
+    point.z=10; // 新增成員
+    point.show=function(){ // 修改成員的資料
+        console.log(this.x, this.y, this.z);
+    };
+    point.show();
+    */
+
+    // 陣列: 可以包裹其他資料的東西, 有順序性和編號
+    // 建立陣列: [資料, 資料, 資料, ...]
+    /*
+    let data=[60, 40, 80]; // []= 空陣列
+    // 取得陣列的長度
+    console.log(data.length);
+    // 取得陣列中的資料: 陣列[編號]
+    console.log(data[0], data[1], data[2]);  
+    // 新增資料
+    data.push(50);
+    data.push(100);
+    console.log(data);
+    // 逐一取得陣列裡的每個資料 *很常寫*
+    let sum=0;
+    for (let i=0;i<data.length;i++){
+        sum+=data[i];
+    }
+    let avg=sum/data.length;
+    console.log(avg);
+    */
+
+    // 台北市資料大平臺 https://data.taipei/#/
+    // World Bank Open Data https://data.worldbank.org/
+
+    // JSON (JavaScript Object Notation, JavaScript 物件表示法)
+    /*
+    let cart={  // 可以有很多層次
+        "total":500, "products":[
+            {
+                "name":"Mac Air",
+                "price":50000,
+                "qty":1
+            },
+            {
+                "name":"Surface",
+                "price":70000,
+                "qty":1
+            }
+        ]
+    };
+    console.log(cart);
+    console.log(cart.total);
+    console.log(cart.products[0].name);
+    */
+    </script>
+
+    <h3>內湖科技園區廠商搜尋</h3>
+    <div>
+        <input type="text" id="keyword" />
+        <button onclick="search();">Search</button>
+    </div>
+    <div id="result"></div>
+    <script>
+    function search(){ // 使用者搜尋資料的地方
+        let keyword=document.querySelector("#keyword").value;
+        let result=document.querySelector("#result");
+        for(let i=0;i<companies.length;i++){
+            // 逐一搜尋公司名稱: 字串.indexOf(關鍵字)
+            if(companies[i]["公司名稱"].indexOf(keyword)>-1){
+                // console.log(companies[i]["公司名稱"]);
+                result.innerHTML+=companies[i]["公司名稱"]+"、";
+            }
+        }
+    }
+    // 載入資料: 使用 AJAX連到某個網址
+    let companies;
+    let src="https://data.taipei/opendata/datalist/apiAccess?scope=resourceAquire&rid=296acfa2-5d93-4706-ad58-e83cc951863c"
+    fetch(src).then(function(response){ //fetch(): 連線到()中會連結到的網址, 限制: 只能連線到對方願意讓你連線的網址
+        // 抓到原始資料, 用 JSON 格式解讀
+        return response.json();
+    }).then(function(data){
+        // 抓到解讀完畢的資料, 印出來
+        // console.log(data);
+        // console.log(data.result.results[0].公司名稱); // 取得物件的成員: 物件.成員名稱
+        // console.log(data.result.results[0]["公司名稱"]); // 取得物件的成員: 物件["成員名稱"]
+        companies=data.result.results;
+    });
+    </script>
+</body>
+</html>
