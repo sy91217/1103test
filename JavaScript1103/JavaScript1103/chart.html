@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart(){
+          drawLineChart();
+          drawPieChart();
+      }
+      function drawLineChart(){
+        /*
+        let data = google.visualization.arrayToDataTable([
+          ['Year', 'Sales', 'Expenses'],
+          ['2004',  1000,      400],
+          ['2005',  1170,      460],
+          ['2006',  660,       1120],
+          ['2007',  1030,      540]
+        ]);
+        */
+        let data = new google.visualization.DataTable();
+        data.addColumn('string', 'Year')
+        data.addColumn('number', 'Sales')
+        data.addColumn({type:"string", role:"annotation"}); //type: 資料型態, role: 角色
+        data.addColumn('number', 'Expenses')
+        data.addRows([
+          ['2004',  1000,   null,     400],
+          ['2005',  1170,   null,     460],
+          ['2006',  660,    "Good",  1120],
+          ['2007',  1030,   null,     540]
+        ]);
+
+        let options ={
+          title: 'Company Performance',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+        let chart =new google.visualization.LineChart(document.getElementById('linechart'));
+        chart.draw(data, options);
+      }
+      function drawPieChart(){
+          // 準備資料
+        let data = google.visualization.arrayToDataTable([ // 圓餅圖(Pie chart):二維陣列 https://developers-dot-devsite-v2-prod.appspot.com/chart/interactive/docs/gallery/piechart.html
+          ['Web Browser', 'Market share'],
+          ['Chrome', 70],
+          ['Firefox',10],
+          ['Safari', 10],
+          ['Others', 10],
+        ]);
+        // 設定一下
+        let options = {
+          title: '瀏覽器市場的市占率',
+          is3D: true,
+          colors: ["#880000","#aa4444","#cc8888","#ffaaaa"]
+        };
+        // 把圖表畫出來
+        let chart = new google.visualization.PieChart(document.getElementById('piechart')); // 把圓餅圖畫在哪
+        chart.draw(data, options); // 給資料及選項讓其繪圖
+      }
+    </script>
+  </head>
+  <body>
+    <h3>Google Charts</h3>  
+    <div id="piechart" style="width: 900px; height: 500px;"></div>
+    <div id="linechart" style="width: 900px; height: 500px"></div>
+  </body>
+</html>
+<script>
+// Google chart https://developers-dot-devsite-v2-prod.appspot.com/chart/interactive/docs/gallery/piechart.html
+</script>
